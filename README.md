@@ -13,4 +13,24 @@ Pilot
 ## Commentaire
 Framework css : Spectre
 
-## Appreciation
+## Installation / mise à jour
+
+### Installation
+```
+composer install
+yarn install
+```
+
+### Commandes pour compiler le css
+
+```
+yarn run encore dev
+```
+ou, pour compiler à chaque fois que les fichiers changent
+```
+yarn run encore dev --watch
+```
+ou
+```
+./node_modules/.bin/encore dev
+```
