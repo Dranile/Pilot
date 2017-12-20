@@ -7,17 +7,18 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <header class="navbar">
+        <header class="navbar p-2">
             <section class="navbar-section">
-                <a href="#" class="navbar-brand mr-2">Spectre.css</a>
-                <a href="#" class="btn btn-link">Docs</a>
-                <a href="https://github.com/picturepan2/spectre" class="btn btn-link">GitHub</a>
-            </section>
-            <section class="navbar-section">
+                <a href="{{ path('homepage') }}" class="navbar-brand mr-2"><img src="{{ asset('img/pilot_logo.png') }}" alt="logo"/></a>
                 <div class="input-group input-inline">
                     <input class="form-input" type="text" placeholder="search">
                     <button class="btn btn-primary input-group-btn">Search</button>
                 </div>
+            </section>
+            <section class="navbar-section">
+                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-link">Inscription</a>
+                <span>ou</span>
+                <a href="{{ path('fos_user_security_login') }}" class="btn btn-link">Connection</a>
             </section>
         </header>
         {% block body %}{% endblock %}
