@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,10 +33,21 @@ class User extends BaseUser
      */
     protected $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="User")
+     */
+    protected $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="User")
+     */
+    protected $articles;
+
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+        $this->comments = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     /**
@@ -61,5 +73,23 @@ class User extends BaseUser
     {
         return $this->description;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    
 
 }
