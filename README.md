@@ -21,6 +21,11 @@ composer install
 yarn install
 ```
 
+### Mise à jour de la BDD 
+```
+php bin/console doctrine:schema:update --force
+```
+
 ### Commandes pour compiler le css
 
 ```
