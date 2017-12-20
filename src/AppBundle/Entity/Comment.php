@@ -37,13 +37,13 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="Article", inversedBy="Comment")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", nullable=false)
      */
     private $article;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="Comment")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 

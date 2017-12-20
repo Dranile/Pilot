@@ -65,9 +65,8 @@ class Article
     private $publishedDate;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="Article")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
