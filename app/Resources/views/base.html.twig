@@ -11,8 +11,8 @@
             <section class="navbar-section">
                 <a href="{{ path('homepage') }}" class="navbar-brand mr-2"><img src="{{ asset('img/pilot_logo.png') }}" alt="logo"/></a>
                 <div class="input-group input-inline">
-                    <input class="form-input" type="text" placeholder="search">
-                    <button class="btn btn-primary input-group-btn">Search</button>
+                    <input class="form-input" type="text" placeholder="{{ 'search'|trans }}">
+                    <button class="btn btn-primary input-group-btn">{{ 'Search'|trans }}</button>
                 </div>
             </section>
             <section class="navbar-section">
@@ -23,7 +23,7 @@
                 </a>
             {% else %}
                     <a href="{{ path('fos_user_registration_register') }}" class="btn btn-link">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
-                    <span>or</span>
+                    <span>{{ 'or'|trans }}</span>
                     <a href="{{ path('fos_user_security_login') }}" class="btn btn-link">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
             {% endif %}
             </section>
