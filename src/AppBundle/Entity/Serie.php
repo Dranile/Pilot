@@ -37,7 +37,7 @@ class Serie
     private $imageUrl;
 
     /**
-     * @ORM\OneToMany(targetEntity="Article", mappedBy="Serie")
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="serie")
      */
     private $articles;
 

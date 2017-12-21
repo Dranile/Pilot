@@ -65,19 +65,19 @@ class Article
     private $publishedDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="Article")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Serie", inversedBy="Article")
+     * @ORM\ManyToOne(targetEntity="Serie", inversedBy="articles")
      * @ORM\JoinColumn(name="serie_id", referencedColumnName="id")
      */
     private $serie;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="Article")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
      */
     private $comments;
 

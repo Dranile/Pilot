@@ -34,12 +34,12 @@ class User extends BaseUser
     protected $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="User")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
      */
     protected $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="Article", mappedBy="User")
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="user")
      */
     protected $articles;
 
