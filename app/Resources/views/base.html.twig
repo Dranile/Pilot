@@ -16,9 +16,16 @@
                 </div>
             </section>
             <section class="navbar-section">
-                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-link">Inscription</a>
-                <span>ou</span>
-                <a href="{{ path('fos_user_security_login') }}" class="btn btn-link">Connection</a>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            {% else %}
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-link">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+                    <span>or</span>
+                    <a href="{{ path('fos_user_security_login') }}" class="btn btn-link">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
             </section>
         </header>
         {% block body %}{% endblock %}
