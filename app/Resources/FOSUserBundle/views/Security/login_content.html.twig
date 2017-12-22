@@ -10,11 +10,11 @@
         {% endif %}
         <div class="form-group">
             <label class="form-label" for="username">{{ 'security.login.username'|trans }}</label>
-            <input class="form-input" type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans }}"/>
+            <input class="form-input" placeholer="{{ 'security.login.username'|trans }}" type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans }}"/>
         </div>
         <div class="form-group">
             <label class="form-label" for="password">{{ 'security.login.password'|trans }}</label>
-            <input class="form-input" type="password" id="password" name="_password" required="required" />
+            <input class="form-input" placeholder="{{ 'security.login.password'|trans }}" type="password" id="password" name="_password" required="required" />
         </div>
         <div class="form-group">
             <label class="form-checkbox" for="remember_me">
