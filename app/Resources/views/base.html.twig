@@ -17,10 +17,30 @@
             </section>
             <section class="navbar-section">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
+                <div class="dropdown dropdown-right">
+                    <figure class="avatar" data-initial="YZ" style="background-color: #5755d9">
+                    </figure>
+                    <a class="btn btn-link dropdown-toggle" tabindex="0">
+                        {{ app.user.username }}
+                        <i class="icon icon-caret" ></i>
+                    </a>
+                    <ul class="menu text-left">
+                        <li class="menu-item">
+                            <a href="{{ path('fos_user_profile_edit') }}">Profile</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ path('new_serie') }}">Ajouter série</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ path('new_article') }}">Ajouter article</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             {% else %}
                     <a href="{{ path('fos_user_registration_register') }}" class="btn btn-link">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
                     <span>{{ 'or'|trans }}</span>
@@ -28,10 +48,9 @@
             {% endif %}
             </section>
         </header>
-        {# A Modifier !!! #}
-        <a href="{{ path('new_serie') }}">Ajouter série</a>
-        <a href="{{ path('new_article') }}">Ajouter article</a>
-        {% block body %}{% endblock %}
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
