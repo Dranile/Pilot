@@ -10,3 +10,12 @@ create: Create
 Name: Name
 Image url: Url link of image
 imageUrl-placeholder: Url link
+
+newArticle-title: New Article
+choose-option: Choose a serie
+Serie: Serie
+Season number: Season number
+Title: Title
+Content: Content
+Is pinned: Pin article to homepage
+Reset: Reset

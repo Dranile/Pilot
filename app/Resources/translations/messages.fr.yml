@@ -10,3 +10,12 @@ create: Créer
 Name: Nom
 Image url: Lien URL de l'image
 imageUrl-placeholder: Lien URL
+
+newArticle-title: Nouvel article
+choose-option: Choisissez une Serie
+Serie: Série
+Season number: Numéro de saison
+Title: Titre
+Content: Contenu
+Is pinned: Accrocher à la page d'acceuil
+Reset: Reinitialiser

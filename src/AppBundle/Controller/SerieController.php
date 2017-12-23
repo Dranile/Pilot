@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 class SerieController extends Controller
 {
     /**
-     * @Route("/serie/newSerie", name="new_serie")
+     * @Route("/Serie/newSerie", name="new_serie")
      */
     public function newSerie(Request $request)
     {
