@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findLastArticle(int $max){
+        $em = $this->getEntityManager();
+
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->setMaxResults($max)
+            ->orderBy("a.publishedDate");
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+
 }

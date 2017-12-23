@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Acceuil{% endblock %}
+{% block title %}{{ 'home'|trans }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
@@ -8,5 +8,21 @@
 
 
 {% block body %}
-    <p>Contenu de la page</p>
+    {% if isEmpty %}
+        <div class="columns">
+            <div class="col-sm-12 col-6 col-mx-auto">
+                <div class="empty">
+                    <div class="empty-icon">
+                        <i class="icon icon-2x icon-message"></i>
+                    </div>
+                    <p class="empty-title h5">{{ 'noArticle-title'|trans }}</p>
+                    <p class="empty-subtitle">{{ 'noArticle-subtitle'|trans }}</p>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% for article in results %}
+            {{ dump(article) }}
+        {% endfor %}
+    {% endif %}
 {% endblock %}

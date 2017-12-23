@@ -1,3 +1,12 @@
 or : ou
 search : recherche
 Search : Rechercher
+home: Acceuil
+noArticle-title: Il n'y a pas encore d'article en ligne
+noArticle-subtitle: Attendez que quelqu'un poste un article...
+newSerie-title: Ajout d'une série
+
+create: Créer
+Name: Nom
+Image url: Lien URL de l'image
+imageUrl-placeholder: Lien URL
