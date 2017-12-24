@@ -22,7 +22,40 @@
         </div>
     {% else %}
         {% for article in results %}
-            {{ dump(article) }}
+            <div class="columns">
+                <div class="column col-6 col-sm-12 centered">
+                    <h2>{{ article.title }}</h2>
+                    <div class="text-gray">
+                        {{ article.publishedDate | date("d/M/Y H:i:m") }} - {{ article.user.username }}
+                    </div>
+                    <div class="columns">
+                            <div class="
+                                {% if article.serie and article.serie.imageUrl %}
+                                    column col-8
+                                {% else %}
+                                    column col-12
+                                {% endif %}
+                            ">
+                            <p >{{ article.content }}</p>
+                            {% if article.serie %}
+                                <span class="chip"><a class="text-gray" href="#">{{ article.serie.name }}</a></span>
+                                {% if article.seasonNumber %}
+                                    <span class="chip"><a class="text-gray" href="#">{{ 'season'|trans }} {{ article.seasonNumber }}</a></span>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        {% if article.serie and article.serie.imageUrl %}
+                        <div class="column col-4">
+                            <img class="img-responsive" src="{{ article.serie.imageUrl }}"/>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <a href="{{ '#' }}">{{ 'read-more'|trans }}</a>
+                    </div>
+                    <div class="divider"></div>
+                </div>
+            </div>
         {% endfor %}
     {% endif %}
 {% endblock %}

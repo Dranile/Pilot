@@ -1,6 +1,10 @@
 or : ou
 search : recherche
 Search : Rechercher
+profil: Profile
+addSerie: Ajouter une série
+addArticle: Ecrire nouvel article
+
 home: Acceuil
 noArticle-title: Il n'y a pas encore d'article en ligne
 noArticle-subtitle: Attendez que quelqu'un poste un article...
@@ -19,3 +23,6 @@ Title: Titre
 Content: Contenu
 Is pinned: Accrocher à la page d'acceuil
 Reset: Reinitialiser
+
+read-more: Lire la suite
+season: Saison

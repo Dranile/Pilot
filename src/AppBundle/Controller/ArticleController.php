@@ -77,7 +77,6 @@ class ArticleController extends Controller
 
             $idSerie = $form->get('serie')->getViewData();
             $article->setSerie($em->find($idSerie));
-            dump($article);
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();

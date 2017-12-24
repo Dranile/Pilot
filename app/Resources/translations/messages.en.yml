@@ -1,6 +1,10 @@
 or : or
 search : search
 Search : Search
+profil: Profil
+addSerie: Add new serie
+addArticle: Write new article
+
 home: Home
 noArticle-title: There is no Article online yet
 noArticle-subtitle: Wait until someone post something...
@@ -19,3 +23,6 @@ Title: Title
 Content: Content
 Is pinned: Pin article to homepage
 Reset: Reset
+
+read-more: Read more...
+season: Season
