@@ -2,11 +2,6 @@
 
 {% block title %}{{ 'home'|trans }}{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
-{% endblock %}
-
-
 {% block body %}
     {% if isEmpty %}
         <div class="columns">
@@ -51,7 +46,7 @@
                         {% endif %}
                     </div>
                     <div>
-                        <a href="{{ '#' }}">{{ 'read-more'|trans }}</a>
+                        <a href="{{ path('article_show', {'urlAlias': article.urlAlias}) }}">{{ 'read-more'|trans }}</a>
                     </div>
                     <div class="divider"></div>
                 </div>

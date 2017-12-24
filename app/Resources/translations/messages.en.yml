@@ -1,4 +1,3 @@
-or : or
 search : search
 Search : Search
 profil: Profil
@@ -26,3 +25,14 @@ Reset: Reset
 
 read-more: Read more...
 season: Season
+
+other-option: Article options
+delete: Delete
+update: Update
+no-description: No description available
+Please: Please
+or : or
+to-write-a-comment: to write a comment...
+your-comment: Your comment...
+no-comment: There is no comment yet
+no-comment-subtitle: Write a comment to share your opinion

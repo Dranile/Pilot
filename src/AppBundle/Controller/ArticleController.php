@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Serie;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,7 +32,6 @@ class ArticleController extends Controller
     {
         $article = new Article();
         $em = $this->getDoctrine()->getRepository(Serie::class );
-        dump($em->findAll());
         $form = $this->createFormBuilder($article)
             ->add('serie', ChoiceType::class, array(
                 'choices' => $em->findAll(),
@@ -88,5 +88,50 @@ class ArticleController extends Controller
         return $this->render('default/newArticle.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/article/{urlAlias}", name="article_show")
+     */
+    public function viewArticle(Article $article){
+        $comment = new Comment();
+        $form = $this->createFormBuilder($comment)
+            ->add('content', TextareaType::class, array(
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'your-comment'
+                ]
+            ))
+            ->getForm();
+
+        return $this->render('default/viewArticle.html.twig', [
+            'form' => $form->createView(),
+            'article' => $article,
+        ]);
+    }
+
+    /**
+     * @Route("/article/deleteArticle/{urlAlias}", name="article_delete")
+     */
+    public function deleteArticle(Article $article){
+        if($article->getUser()->getId() === $this->getUser()->getId()){
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($article);
+            $em->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
+        else{
+            //Erreur à gérer
+            return $this->redirectToRoute('homepage');
+        }
+
+    }
+
+    /**
+     * @Route("/article/updateArticle/{urlAlias}", name="article_update")
+     */
+    public function updateArticle(Request $request, Article $article){
+        
     }
 }
