@@ -77,3 +77,14 @@ fos_user:
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
+
+stfalcon_tinymce:
+        include_jquery: true
+        tinymce_jquery: true
+        selector: ".tinymce"
+        language: '%locale%'
+        theme:
+            simple:
+                theme: "modern"
+                plugins:
+                    - "emoticons autoresize searchreplace textcolor link lists fullscreen"

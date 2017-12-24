@@ -16,6 +16,11 @@ class DefaultController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $results = $repository->findLastArticle(10);
+
+        foreach ($results as $article){
+            $article->setContent(substr($article->getContent(),0,255). '...');
+        }
+
         //var_dump($result);
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [

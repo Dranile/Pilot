@@ -31,7 +31,7 @@
                                     column col-12
                                 {% endif %}
                             ">
-                            <p >{{ article.content }}</p>
+                            <p >{{ article.content|raw }}</p>
                             {% if article.serie %}
                                 <span class="chip"><a class="text-gray" href="#">{{ article.serie.name }}</a></span>
                                 {% if article.seasonNumber %}

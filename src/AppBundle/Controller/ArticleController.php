@@ -52,7 +52,10 @@ class ArticleController extends Controller
                 'attr' => ['placeholder' => 'Title'],
             ))
             ->add('content', TextareaType::class, array(
-                'attr' => ['placeholder' => 'Content',],
+                'attr' => [
+                    'placeholder' => 'Content',
+                    'class' => 'tinymce'
+                    ],
             ))
             ->add('isPinned', CheckboxType::class, array(
                 'required' => false,
@@ -70,8 +73,9 @@ class ArticleController extends Controller
 
         if($form->isSubmitted() && $form->isValid()){
             $article = $form->getData();
-
-            $article->setUrlAlias(base64_encode(random_bytes(5)) . '-' . $article->getTitle());
+            $urlAlias = base64_encode(random_bytes(5)) . '-' . $article->getTitle();
+            $urlAlias = str_replace('/','',$urlAlias);
+            $article->setUrlAlias($urlAlias);
             $article->setPublishedDate(new \DateTime());
             $article->setUser($this->getUser());
 
@@ -99,7 +103,14 @@ class ArticleController extends Controller
             ->add('content', TextareaType::class, array(
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'your-comment'
+                    'placeholder' => 'your-comment',
+                    'class' => 'form-input'
+                ]
+            ))
+            ->add('create', SubmitType::class, array(
+                'label' => 'create',
+                'attr' => [
+                    'class' => 'btn btn-primary float-right'
                 ]
             ))
             ->getForm();
