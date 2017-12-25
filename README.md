@@ -33,7 +33,7 @@ Bundle utilisés:
 - [ ] Modification de profil habillé
 - [ ] Modification de profil (Description)
 
-#### Articles
+#### Articles
 
 - [x] Page d'acceuil
 - [x] Pagination
@@ -69,7 +69,7 @@ yarn install
 php bin/console doctrine:schema:update --force
 ```
 
-### Commandes pour compiler le css
+### Commandes pour compiler le css
 
 ```
 yarn run encore dev
