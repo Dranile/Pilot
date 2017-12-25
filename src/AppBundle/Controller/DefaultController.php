@@ -14,18 +14,34 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+
+        $page = $request->query->get('page');
+        $nb = $request->query->get('nbArticle');
+        if(!$nb){
+            $nb = 10;
+        }
+        if(!$page){
+            $page = 1;
+        }
         $repository = $this->getDoctrine()->getRepository(Article::class);
-        $results = $repository->findLastArticle(10);
+        $results = $repository->findLastArticle($page, $nb);
 
         foreach ($results as $article){
             $article->setContent(substr($article->getContent(),0,255). '...');
         }
 
-        //var_dump($result);
-        // replace this example code with whatever you need
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($results) / $nb),
+            'nbArticles' => $nb,
+        );
+
         return $this->render('default/index.html.twig', [
             'results' => $results,
-            'isEmpty' => count($results) === 0,
+            'pagination' => $pagination
         ]);
+
+        //var_dump($result);
+        // replace this example code with whatever you need
     }
 }

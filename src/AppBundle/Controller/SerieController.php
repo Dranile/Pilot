@@ -16,10 +16,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/serie")
+ */
 class SerieController extends Controller
 {
     /**
-     * @Route("/Serie/newSerie", name="new_serie")
+     * @Route("/newSerie", name="new_serie")
      */
     public function newSerie(Request $request)
     {

@@ -3,7 +3,7 @@
 {% block title %}{{ 'home'|trans }}{% endblock %}
 
 {% block body %}
-    {% if isEmpty %}
+    {% if results|length == 0 %}
         <div class="columns">
             <div class="col-sm-12 col-6 col-mx-auto">
                 <div class="empty">
@@ -52,5 +52,45 @@
                 </div>
             </div>
         {% endfor %}
+        {% if pagination.nbPages > 0 %}
+            <div class="flex-center">
+                <ul class="pagination">
+                    <li class="page-item {% if pagination.page == 1 %}disabled{% endif %}">
+                        <a href="{{ url('homepage') ~ '?page=' ~ (pagination.page-1) ~ '&nbArticle=' ~ pagination.nbArticles }}">Previous</a>
+                    </li>
+                    {% if pagination.page-2 > 1 %}
+                        <li class="page-item">
+                            <a href="{{ url('homepage') ~ '?page=1&nbArticle=' ~ pagination.nbArticles }}">1</a>
+                        </li>
+                        {% if pagination.page-3 > 1 %}
+                            <li class="page-item">
+                                <span>...</span>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    {% for p in range(max(pagination.page-2, 1), min(pagination.page+2, pagination.nbPages)) %}
+                        <li class="page-item {% if p == pagination.page %}active{% endif %}">
+                            <a href="{{ url('homepage') ~ '?page=' ~ p ~ '&nbArticle=' ~ pagination.nbArticles }}">
+                                {{ p }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    {% if pagination.page+2 < pagination.nbPages %}
+                        {% if pagination.page+3 < pagination.nbPages %}
+                            <li class="page-item">
+                                <span>...</span>
+                            </li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a href="{{ url('homepage') ~ '?page=' ~ pagination.nbPages ~ '&nbArticle=' ~ pagination.nbArticles }}">{{ pagination.nbPages }}</a>
+                        </li>
+                    {% endif %}
+                    <li class="page-item {% if pagination.page == pagination.nbPages %}disabled{% endif %}">
+                        <a href="{{ url('homepage') ~ '?page=' ~ (pagination.page+1) ~ '&nbArticle=' ~ pagination.nbArticles }}">Next</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        {% endif %}
     {% endif %}
 {% endblock %}

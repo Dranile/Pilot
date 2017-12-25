@@ -24,10 +24,13 @@ use Symfony\Component\HttpFoundation\Request;
  * Time: 18:03
  */
 
+/**
+ * @Route("/article")
+ */
 class ArticleController extends Controller
 {
     /**
-     * @Route("/Article/newArticle", name="new_article")
+     * @Route("/newArticle", name="new_article")
      */
     public function newArticle(Request $request)
     {
@@ -62,7 +65,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/article/{urlAlias}", name="article_show")
+     * @Route("/{urlAlias}", name="article_show")
      */
     public function viewArticle(Article $article){
         $comment = new Comment();
@@ -89,7 +92,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/article/deleteArticle/{urlAlias}", name="article_delete")
+     * @Route("/deleteArticle/{urlAlias}", name="article_delete")
      */
     public function deleteArticle(Article $article){
         if($article->getUser()->getId() === $this->getUser()->getId()){
@@ -107,7 +110,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/article/updateArticle/{urlAlias}", name="article_update")
+     * @Route("/updateArticle/{urlAlias}", name="article_update")
      */
     public function updateArticle(Request $request, Article $article){
 

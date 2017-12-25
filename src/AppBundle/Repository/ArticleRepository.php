@@ -1,6 +1,9 @@
 <?php
 
 namespace AppBundle\Repository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use http\Exception\InvalidArgumentException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * ArticleRepository
@@ -10,14 +13,37 @@ namespace AppBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findLastArticle(int $max){
-        $em = $this->getEntityManager();
+    public function findLastArticle($page = 1, $max = 10 ){
+
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'value of argument $page is incorrect (value : ' . $page . ').'
+            );
+        }
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('Asked page does not exist');
+        }
+
+        if (!is_numeric($max)) {
+            throw new InvalidArgumentException(
+                'Value of $nbMaxParPage is incorrect (value : ' . $max . ').'
+            );
+        }
 
         $queryBuilder = $this->createQueryBuilder('a')
-            ->setMaxResults($max)
-            ->orderBy("a.publishedDate");
+            ->orderBy("a.publishedDate","DESC");
         $query = $queryBuilder->getQuery();
-        return $query->getResult();
+
+        $firstResult = ($page - 1) * $max;
+        $query->setFirstResult($firstResult)->setMaxResults($max);
+        $paginator = new Paginator($query);
+
+        if ( ($paginator->count() <= $firstResult) && $page != 1) {
+            throw new NotFoundHttpException('Asked page does not exist'); // page 404, sauf pour la première page
+        }
+        //return $query->getResult();
+        return $paginator;
     }
 
 }
