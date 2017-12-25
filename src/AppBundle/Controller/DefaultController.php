@@ -18,7 +18,7 @@ class DefaultController extends Controller
         $page = $request->query->get('page');
         $nb = $request->query->get('nbArticle');
         if(!$nb){
-            $nb = 10;
+            $nb = 5;
         }
         if(!$page){
             $page = 1;

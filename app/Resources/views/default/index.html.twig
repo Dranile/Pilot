@@ -56,7 +56,7 @@
             <div class="flex-center">
                 <ul class="pagination">
                     <li class="page-item {% if pagination.page == 1 %}disabled{% endif %}">
-                        <a href="{{ url('homepage') ~ '?page=' ~ (pagination.page-1) ~ '&nbArticle=' ~ pagination.nbArticles }}">Previous</a>
+                        <a href="{{ url('homepage') ~ '?page=' ~ (pagination.page-1) ~ '&nbArticle=' ~ pagination.nbArticles }}">{{ 'previous'|trans }}</a>
                     </li>
                     {% if pagination.page-2 > 1 %}
                         <li class="page-item">
@@ -86,7 +86,7 @@
                         </li>
                     {% endif %}
                     <li class="page-item {% if pagination.page == pagination.nbPages %}disabled{% endif %}">
-                        <a href="{{ url('homepage') ~ '?page=' ~ (pagination.page+1) ~ '&nbArticle=' ~ pagination.nbArticles }}">Next</a>
+                        <a href="{{ url('homepage') ~ '?page=' ~ (pagination.page+1) ~ '&nbArticle=' ~ pagination.nbArticles }}">{{ 'next'|trans }}</a>
                     </li>
                 </ul>
                 </div>
