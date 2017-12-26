@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "postinstall": "yarn install && yarn run encore production"
+    "postinstall": "yarn run encore production"
   },
   
   "dependencies": {
