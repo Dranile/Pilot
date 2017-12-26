@@ -54,7 +54,7 @@ class ArticleController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
-
+            // todo : afficher un message de succès
             return $this->redirectToRoute('homepage');
 
         }
@@ -88,6 +88,7 @@ class ArticleController extends Controller
         return $this->render('default/viewArticle.html.twig', [
             'form' => $form->createView(),
             'article' => $article,
+            'isAuthorized' => $this->authorizedUser($this->getUser(), $article->getUser()),
         ]);
     }
 
@@ -95,15 +96,15 @@ class ArticleController extends Controller
      * @Route("/deleteArticle/{urlAlias}", name="article_delete")
      */
     public function deleteArticle(Article $article){
-        if($article->getUser()->getId() === $this->getUser()->getId()){
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($article);
-            $em->flush();
-
+        if( !$this->authorizedUser($this->getUser(), $article->getUser()) ){
+            //TODO Erreur à gérer
             return $this->redirectToRoute('homepage');
         }
         else{
-            //Erreur à gérer
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($article);
+            $em->flush();
+            // todo afficher un message de succès
             return $this->redirectToRoute('homepage');
         }
 
@@ -114,12 +115,29 @@ class ArticleController extends Controller
      */
     public function updateArticle(Request $request, Article $article){
 
-        if(!$this->getUser() || $this->getUser()->getId() != $article->getUser()->getId()){
+        if(!$this->authorizedUser($this->getUser(), $article->getUser())){
+            //Todo erreur à gérer
           return $this->redirectToRoute('homepage');
         }
 
         $em = $this->getDoctrine()->getRepository(Serie::class);
         $form = $this->createArticleForm($article,$em, 'update');
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $article = $form->getData();
+
+            $idSerie = $form->get('serie')->getViewData();
+            $article->setSerie($em->find($idSerie));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+            // todo : afficher un message de succès
+            return $this->redirectToRoute('homepage');
+
+        }
 
         return $this->render('default/newArticle.html.twig', array(
             'form' => $form->createView(),
@@ -166,5 +184,9 @@ class ArticleController extends Controller
             ->getForm();
 
         return $form;
+    }
+
+    public function authorizedUser($user, $userArticle){
+        return $user && (($user->getId() === $userArticle->getId()) || $this->isGranted('ROLE_ADMIN', $user));
     }
 }

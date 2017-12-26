@@ -24,7 +24,7 @@
             </div>
             <p>{{ article.content|raw }}</p>
             <div class="divider"></div>
-            {% if app.user and app.user.id == article.user.id %}
+            {% if isAuthorized %}
                 <div>
                     <h5>{{ 'other-option'|trans }}</h5>
                     <a href="{{ path('article_update', {'urlAlias': article.urlAlias}) }}" class="btn btn-error mr-2">{{ 'update'|trans }}</a>

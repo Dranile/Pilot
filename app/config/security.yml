@@ -6,7 +6,8 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_WRITER:      ROLE_USER
+        ROLE_ADMIN:       ROLE_WRITER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
@@ -36,6 +37,8 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/Article/newArticle, role: ROLE_USER }
-        - { path: ^/Serie/newSerie, role: ROLE_USER }
+        - { path: ^/article/newArticle, role: ROLE_WRITER }
+        - { path: ^/article/updateArticle, role: ROLE_WRITER }
+        - { path: ^/article/deleteArticle, role: ROLE_WRITER }
+        - { path: ^/serie/newSerie, role: ROLE_WRITER }
         - { path: ^/admin/, role: ROLE_ADMIN }

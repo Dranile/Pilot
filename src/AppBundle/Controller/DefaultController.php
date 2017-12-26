@@ -36,12 +36,11 @@ class DefaultController extends Controller
             'nbArticles' => $nb,
         );
 
+        dump($this->getUser());
+
         return $this->render('default/index.html.twig', [
             'results' => $results,
             'pagination' => $pagination
         ]);
-
-        //var_dump($result);
-        // replace this example code with whatever you need
     }
 }
