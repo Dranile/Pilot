@@ -6,6 +6,10 @@ imports:
 #        metadata_cache_driver: apc
 #        result_cache_driver: apc
 #        query_cache_driver: apc
+doctrine:
+    dbal:
+        url: "%env(DATABASE_URL)%"
+
 
 monolog:
     handlers:
@@ -15,6 +19,7 @@ monolog:
             handler: nested
         nested:
             type: stream
+            path: 'php://stderr'
             path: '%kernel.logs_dir%/%kernel.environment%.log'
             level: debug
         console:
