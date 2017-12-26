@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Urodoz\Truncate\TruncateService;
 use AppBundle\Entity\Article;
 
 class DefaultController extends Controller
@@ -26,8 +27,9 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $results = $repository->findLastArticle($page, $nb);
 
+        $truncateService = new TruncateService();
         foreach ($results as $article){
-            $article->setContent(substr($article->getContent(),0,255). '...');
+            $article->setContent($truncateService->truncate($article->getContent(), 255));
         }
 
         $pagination = array(
