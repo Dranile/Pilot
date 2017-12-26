@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/fields.html.twig' %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="columns">
+        <div class="column col-6 col-sm-12 col-mx-auto">
+            <h2 class="text-center">{{ article.title }}</h2>
+            {% if article.serie and article.serie.imageUrl %}
+                <img class="img-responsive"  src="{{ article.serie.imageUrl }}">
+            {% endif %}
+            <div>
+                <span class="text-gray">{{ article.publishedDate | date("d/M/Y H:i")}}</span>
+                {% if article.serie %}
+                    <span class="chip"><a class="text-gray" href="#">{{ article.serie.name }}</a></span>
+                    {% if article.seasonNumber %}
+                        <span class="chip"><a class="text-gray" href="#">{{ 'season'|trans }} {{ article.seasonNumber }}</a></span>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <p>{{ article.content|raw }}</p>
+            <div class="divider"></div>
+            {% if isAuthorized %}
+                <div>
+                    <h5>{{ 'other-option'|trans }}</h5>
+                    <a href="{{ path('article_update', {'urlAlias': article.urlAlias}) }}" class="btn btn-error mr-2">{{ 'update'|trans }}</a>
+                    <a href="{{ path('article_delete', {'urlAlias': article.urlAlias}) }}" class="text-error">{{ 'delete'|trans }}</a></div>
+                <div class="divider"></div>
+            {% endif %}
+            <div>
+                <div class="columns">
+                    <div class="mr-2">
+                        <figure class="avatar avatar-lg" data-initial="YZ" style="background-color: #5755d9">
+                        </figure>
+                    </div>
+                    <div>
+                        <h4>{{ article.user.username }}</h4>
+                        <p>
+                            {% if article.user.description %}
+                                {{ article.user.description }}
+                            {% else %}
+                                {{ 'no-description'|trans }}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="comments">
+                <h5>Comments</h5>
+                {% if not app.user %}
+                    <div class="write-comment">
+                        {{ 'Please'|trans }}
+                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                        {{ 'or'|trans }}
+                        <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+                        {{ 'to-write-a-comment'|trans }}
+                    </div>
+                {% else %}
+                    {{ form(form) }}
+                {% endif %}
+                {% if article.comments|length == 0 %}
+                    <div class="empty">
+                        <div class="empty-icon">
+                            <i class="icon icon-message"></i>
+                        </div>
+                        <p class="empty-title h5">{{ 'no-comment'|trans }}</p>
+                        <p class="empty-subtitle">{{ 'no-comment-subtitle'|trans }}</p>
+                    </div>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

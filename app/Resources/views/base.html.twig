@@ -3,11 +3,58 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header class="navbar p-2">
+            <section class="navbar-section">
+                <a href="{{ path('homepage') }}" class="navbar-brand mr-2"><img src="{{ asset('img/pilot_logo.png') }}" alt="logo"/></a>
+                <div class="input-group input-inline">
+                    <input class="form-input" type="text" placeholder="{{ 'search'|trans }}">
+                    <button class="btn btn-primary input-group-btn">{{ 'Search'|trans }}</button>
+                </div>
+            </section>
+            <section class="navbar-section">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <div class="dropdown dropdown-right">
+                    <figure class="avatar" data-initial="YZ" style="background-color: #5755d9">
+                    </figure>
+                    <a class="btn btn-link dropdown-toggle" tabindex="0">
+                        {{ app.user.username }}
+                        <i class="icon icon-caret" ></i>
+                    </a>
+                    <ul class="menu text-left">
+                        <li class="menu-item">
+                            <a href="{{ path('fos_user_profile_edit') }}">{{ 'profil'|trans }}</a>
+                        </li>
+                        {% if is_granted('ROLE_WRITER') %}
+                        <li class="menu-item">
+                            <a href="{{ path('new_serie') }}">{{ 'addSerie'|trans }}</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ path('new_article') }}">{{ 'addArticle'|trans }}</a>
+                        </li>
+                        {% endif %}
+                        <li class="menu-item">
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            {% else %}
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-link">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+                    <span>{{ 'or'|trans }}</span>
+                    <a href="{{ path('fos_user_security_login') }}" class="btn btn-link">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
+            </section>
+        </header>
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

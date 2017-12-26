@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/fields.html.twig' %}
+
+{% block title %}{{ 'newSerie-title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="columns">
+        <div class="column col-6 col-mx-auto col-sm-12">
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}

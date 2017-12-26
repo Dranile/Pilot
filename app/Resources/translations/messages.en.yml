@@ -1,0 +1,42 @@
+search : search
+Search : Search
+profil: Profil
+addSerie: Add new serie
+addArticle: Write new article
+
+home: Home
+noArticle-title: There is no Article online yet
+noArticle-subtitle: Wait until someone post something...
+newSerie-title: New serie
+
+create: Create
+Name: Name
+Image url: Url link of image
+imageUrl-placeholder: Url link
+
+newArticle-title: New Article
+choose-option: Choose a serie
+Serie: Serie
+Season number: Season number
+Title: Title
+Content: Content
+Is pinned: Pin article to homepage
+Reset: Reset
+
+read-more: Read more...
+season: Season
+next: Next
+previous: Previous
+
+other-option: Article options
+delete: Delete
+update: Update
+no-description: No description available
+Please: Please
+or : or
+to-write-a-comment: to write a comment...
+your-comment: Your comment...
+no-comment: There is no comment yet
+no-comment-subtitle: Write a comment to share your opinion
+
+Description: Description
