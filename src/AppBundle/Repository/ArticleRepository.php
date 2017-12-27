@@ -46,4 +46,17 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         return $paginator;
     }
 
+    public function getArticleOfSerie($id){
+
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->where('a.serie_id = ?1')
+            ->setParameter(1,$id);
+
+
+        $query = $queryBuilder->getQuery();
+
+        var_dump("YOLO");
+
+    }
+
 }

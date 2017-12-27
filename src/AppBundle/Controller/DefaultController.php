@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Article;
 
 class DefaultController extends Controller
@@ -44,4 +45,16 @@ class DefaultController extends Controller
         //var_dump($result);
         // replace this example code with whatever you need
     }
+
+    /**
+     * @Route("/search/{text}", name="search")
+     */
+    public function search(Request $request, $text){
+
+        $repository = $this->getDoctrine()->getRepository(Serie::class);
+        $results = $repository->getSameAs($text);
+
+        return new Response(json_encode($results));
+    }
+
 }

@@ -9,6 +9,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Serie;
+use AppBundle\Entity\Article;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -52,5 +54,23 @@ class SerieController extends Controller
         return $this->render('default/newSerie.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/{name}", name="get_serie")
+     * @ParamConverter("serie", class="AppBundle:Serie")
+     */
+    public function getArticleOfSerie(Serie $serie){
+
+        /*$repository = $this->getDoctrine()->getRepository(Article::class);
+        $results = $repository->getArticleOfSerie($serie->getId());
+        var_dump($results);*/
+
+        dump($serie->getArticles());
+        return $this->render('default/index.html.twig', [
+            'results' => "",
+            'pagination' => ""
+        ]);
+
     }
 }
