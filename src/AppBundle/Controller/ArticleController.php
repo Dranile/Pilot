@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\CommentType;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Serie;
@@ -69,22 +70,10 @@ class ArticleController extends Controller
      */
     public function viewArticle(Article $article){
         $comment = new Comment();
-        $form = $this->createFormBuilder($comment)
-            ->add('content', TextareaType::class, array(
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'your-comment',
-                    'class' => 'form-input'
-                ]
-            ))
-            ->add('create', SubmitType::class, array(
-                'label' => 'create',
-                'attr' => [
-                    'class' => 'btn btn-primary float-right'
-                ]
-            ))
-            ->getForm();
-
+        $comment->setArticle($article);
+        $form = $this->createForm(CommentType::class, $comment, array(
+            'action' =>  $this->generateUrl('new_comment'),
+        ));
         return $this->render('default/viewArticle.html.twig', [
             'form' => $form->createView(),
             'article' => $article,
@@ -96,7 +85,7 @@ class ArticleController extends Controller
      * @Route("/deleteArticle/{urlAlias}", name="article_delete")
      */
     public function deleteArticle(Article $article){
-        if( !$this->authorizedUser($this->getUser(), $article->getUser()) ){
+        if( !$this->authorizedUser($this->getUser(), $article->getUser())){
             //TODO Erreur à gérer
             return $this->redirectToRoute('homepage');
         }
@@ -145,7 +134,7 @@ class ArticleController extends Controller
 
     }
 
-    public function createArticleForm(Article $article, ObjectRepository $em, $type){
+    private function createArticleForm(Article $article, ObjectRepository $em, $type){
         $form = $this->createFormBuilder($article)
             ->add('serie', ChoiceType::class, array(
                 'choices' => $em->findAll(),
@@ -186,7 +175,7 @@ class ArticleController extends Controller
         return $form;
     }
 
-    public function authorizedUser($user, $userArticle){
+    private function authorizedUser($user, $userArticle){
         return $user && (($user->getId() === $userArticle->getId()) || $this->isGranted('ROLE_ADMIN', $user));
     }
 }

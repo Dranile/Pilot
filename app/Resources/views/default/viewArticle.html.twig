@@ -32,14 +32,14 @@
                 <div class="divider"></div>
             {% endif %}
             <div>
-                <div class="columns">
-                    <div class="mr-2">
+                <div class="tile">
+                    <div class="tile-icon">
                         <figure class="avatar avatar-lg" data-initial="YZ" style="background-color: #5755d9">
                         </figure>
                     </div>
-                    <div>
-                        <h4>{{ article.user.username }}</h4>
-                        <p>
+                    <div class="tile-content">
+                        <p class="tile-title">{{ article.user.username }}</p>
+                        <p class="tile-subtitle text-gray">
                             {% if article.user.description %}
                                 {{ article.user.description }}
                             {% else %}
@@ -72,6 +72,20 @@
                         <p class="empty-subtitle">{{ 'no-comment-subtitle'|trans }}</p>
                     </div>
                 {% else %}
+                    {% for comment in article.comments %}
+                        <div class="card my-2">
+                            <div class="card-header">
+                                {% if is_granted('ROLE_WRITER') or (comment.user.id == app.user.id) %}
+                                    <a href="{{ path('delete_comment', {'id': comment.id}) }}" class="btn btn-error float-right"><i class="icon icon-delete"></i></a>
+                                {% endif %}
+                                <div class="card-title h5">{{ comment.user.username }}</div>
+                                <div class="card-subtitle text-gray">{{ comment.date|date("d/M/Y H:i") }}</div>
+                            </div>
+                            <div class="card-body">
+                                {{ comment.content }}
+                            </div>
+                        </div>
+                    {% endfor %}
                 {% endif %}
             </div>
         </div>
