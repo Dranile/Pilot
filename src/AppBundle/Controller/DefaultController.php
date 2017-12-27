@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Urodoz\Truncate\TruncateService;
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Serie;
 
 class DefaultController extends Controller
 {
@@ -49,7 +50,6 @@ class DefaultController extends Controller
      * @Route("/search/{text}", name="search")
      */
     public function search(Request $request, $text){
-
         $repository = $this->getDoctrine()->getRepository(Serie::class);
         $results = $repository->getSameAs($text);
 
