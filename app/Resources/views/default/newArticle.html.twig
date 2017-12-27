@@ -4,6 +4,7 @@
 {% block title %}{{ 'newArticle-title'|trans }}{% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
 {% endblock %}
 
@@ -17,5 +18,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     {{ tinymce_init() }}
 {% endblock %}

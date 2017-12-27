@@ -82,7 +82,7 @@ fos_user:
             type: AppBundle\Form\ProfileType
 
 stfalcon_tinymce:
-        include_jquery: true
+        include_jquery: false
         tinymce_jquery: true
         selector: ".tinymce"
         language: '%locale%'
