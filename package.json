@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "postinstall": "yarn run encore production"
+  },
+  
   "dependencies": {
     "@symfony/webpack-encore": "^0.17.0",
     "jquery": "^3.2.1",

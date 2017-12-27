@@ -29,9 +29,10 @@ Bundle utilisés:
 
 - [x] Login habillé
 - [x] Enregistrement habillé
-- [ ] Gestion des rôles (Utilisateur, Redacteur, Admin)
-- [ ] Modification de profil habillé
-- [ ] Modification de profil (Description)
+- [x] Gestion des rôles (Utilisateur, Redacteur, Admin)
+- [x] Modification de profil habillé
+- [x] Modification de profil (Description)
+- [x] Gestion des utilisateurs par l'admin (modification de droit)
 
 #### Articles
 
@@ -45,10 +46,10 @@ Bundle utilisés:
 
 #### Commentaires
 
-- [ ] Rédaction d'un commentaire
-- [ ] Visualisation d'un commentaire
-- [ ] Modification d'un commentaire
-- [ ] Suppression d'un commentaire
+- [ ] Rédaction d'un commentaire (utilisateur)
+- [ ] Visualisation des commentaires
+- [ ] Modification d'un commentaire (Admin ou Redacteur ou utilisateur lui même)
+- [ ] Suppression d'un commentaire (Admin ou Redacteur ou utilisateur lui même)
  
 #### Recherche
 
