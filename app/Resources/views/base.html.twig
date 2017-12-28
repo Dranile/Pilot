@@ -16,7 +16,7 @@
             <section class="navbar-section ">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <div class="dropdown dropdown-right">
-                        <figure class="avatar" data-initial="YZ">
+                        <figure id="nav_avatar" class="avatar" data-initial="YZ">
                         </figure>
                         <a id="nav-username" class="btn btn-link dropdown-toggle" tabindex="0">
                             {{ app.user.username }}

@@ -20,4 +20,5 @@
 {% block javascripts %}
     {{ parent() }}
     {{ tinymce_init() }}
+    <script src="{{ asset('build/form_article.js') }}"></script>
 {% endblock %}
