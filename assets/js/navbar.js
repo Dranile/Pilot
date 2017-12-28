@@ -1,4 +1,7 @@
+require('../scss/navbar.css');
+
 var $ = require('jquery');
+require('jquery-ui/ui/widgets/autocomplete');
 
 const search = document.getElementById("search");
 search.addEventListener('keydown', function(event) {
