@@ -2,12 +2,25 @@
 {% form_theme form 'form/fields.html.twig' %}
 
 <div class="columns">
-    <div class="column col-3 col-xs-12 col-mx-auto">
-        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-            {{ form_widget(form) }}
-        <div class="form-group">
-            <input class="btn btn-primary" type="submit" value="{{ 'registration.submit'|trans }}" />
+    <div style="margin-top: 30px;" class="centered">
+        <div  class="card">
+            <div class="card-image centered">
+                <img src="{{ asset('img/pilot_logo.png') }}" class="img-responsive">
+            </div>
+            <div class="card-header centered">
+                <div class="card-title h3">Register</div>
+            </div>
+            <div class="divider"></div>
+            <div class="card-body">
+                <div style="background-color: white;width: 100%;" class="column col-3 col-xs-12 col-mx-auto">
+                    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+                    {{ form_widget(form) }}
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="{{ 'registration.submit'|trans }}" />
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
         </div>
-        {{ form_end(form) }}
     </div>
 </div>
