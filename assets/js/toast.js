@@ -1,4 +1,4 @@
 
 $(".toast > button").click(function () {
-    $(this).parent().hide();
+    $(this).parent().fadeOut( "slow" );
 });
