@@ -27,7 +27,7 @@
         </div>
     {% else %}
         <div style="margin: 10px;margin-left: auto;margin-right: auto;" class="col-8">
-        {% for article in results %}
+            {% for article in results %}
                 <div class="columns">
                     {% if article.serie and article.serie.imageUrl %}
                         <div class="column col-4">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div style="border-width: 1px; border-color: black;" class="divider"></div>
-        {% endfor %}
+            {% endfor %}
         </div>
         {% if pagination != null %}
             {% if pagination.nbPages > 0 %}
@@ -94,7 +94,7 @@
                             <a href="{{ url('homepage') ~ '?page=' ~ (pagination.page+1) ~ '&nbArticle=' ~ pagination.nbArticles }}">{{ 'next'|trans }}</a>
                         </li>
                     </ul>
-                    </div>
+                </div>
                 </div>
             {% endif %}
         {% endif %}

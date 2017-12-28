@@ -140,7 +140,7 @@ class ArticleController extends Controller
                 $em->persist($article);
                 $em->flush();
 
-                $this->get('session')->getFlashBag()->set('success', 'Article Modified');
+                $this->get('session')->getFlashBag()->set('success', 'Content modified');
 
                 // todo : afficher un message de succès
                 return $this->redirectToRoute('homepage');
