@@ -1,5 +1,6 @@
 header {
     padding: 10px;
+    background-color: #3097D1;
 }
 
 #nav-username {
@@ -16,4 +17,10 @@ header {
 
 #nav_avatar {
     background-color : green;
+}
+
+#or-span {
+    display:inline-block;
+    vertical-align: middle;
+    color: white;
 }

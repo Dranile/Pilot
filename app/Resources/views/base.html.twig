@@ -11,8 +11,8 @@
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
-<body class="bg-secondary">
-<header class="navbar bg-primary">
+<body class="bg-gray">
+<header class="navbar">
     <section class="navbar-section ">
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <div class="dropdown">
@@ -44,7 +44,7 @@
         {% else %}
             <div>
                 <a id="register-btn" href="{{ path('fos_user_registration_register') }}" class="btn btn-link">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
-                <span>{{ 'or'|trans }}</span>
+                <span id="or-span"> {{ 'or'|trans }}</span>
                 <a id="login-btn" href="{{ path('fos_user_security_login') }}" class="btn btn-link">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
             </div>
         {% endif %}
