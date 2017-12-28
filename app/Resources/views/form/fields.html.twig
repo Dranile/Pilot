@@ -85,7 +85,12 @@
 {%- endblock choice_widget_options -%}
 
 {%- block checkbox_widget -%}
-    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <div class="form-group">
+        <label class="form-checkbox">
+            <input type="checkbox" {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} >
+            <i class="form-icon"></i>  Pin to Homepage
+        </label>
+    </div>
 {%- endblock checkbox_widget -%}
 
 {%- block radio_widget -%}
