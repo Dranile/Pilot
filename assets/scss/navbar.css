@@ -1,0 +1,19 @@
+header {
+    padding: 10px;
+}
+
+#nav-username {
+    color: white;
+}
+
+#register-btn{
+    color: white;
+}
+
+#login-btn {
+    color: white;
+}
+
+.avatar {
+    background-color : green;
+}

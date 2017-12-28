@@ -49,13 +49,15 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
     public function getArticleOfSerie($id){
 
         $queryBuilder = $this->createQueryBuilder('a')
-            ->where('a.serie_id = ?1')
+            ->where('a.serie = ?1')
             ->setParameter(1,$id);
 
 
         $query = $queryBuilder->getQuery();
 
-        var_dump("YOLO");
+        $result = $query->getResult();
+
+        return $result;
 
     }
 

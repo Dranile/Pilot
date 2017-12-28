@@ -62,14 +62,13 @@ class SerieController extends Controller
      */
     public function getArticleOfSerie(Serie $serie){
 
-        /*$repository = $this->getDoctrine()->getRepository(Article::class);
+        $repository = $this->getDoctrine()->getRepository(Article::class);
         $results = $repository->getArticleOfSerie($serie->getId());
-        var_dump($results);*/
 
-        dump($serie->getArticles());
+        dump($results);
         return $this->render('default/index.html.twig', [
-            'results' => "",
-            'pagination' => ""
+            'results' => $results,
+            'pagination' => null
         ]);
 
     }

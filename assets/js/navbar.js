@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 const search = document.getElementById("search");
 search.addEventListener('keydown', function(event) {
     if (event.key === "Enter") {
@@ -5,6 +7,12 @@ search.addEventListener('keydown', function(event) {
         event.preventDefault();
         // Do more work
     }
+});
+
+const search_btn = document.getElementById('search-btn');
+search_btn.addEventListener('click', function (event) {
+    window.location = "/serie/" + encodeURIComponent(search.value);
+    event.preventDefault();
 });
 
 $(function(){
@@ -29,7 +37,7 @@ $(function(){
     });
 });
 
-$(document).ajaxError(
+/*$(document).ajaxError(
     function (event, jqXHR, ajaxSettings, thrownError) {
         alert('[event:' + event + '], [jqXHR:' + jqXHR + '], [ajaxSettings:' + ajaxSettings + '], [thrownError:' + thrownError + '])');
-    });
+    });*/

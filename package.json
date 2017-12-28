@@ -2,10 +2,10 @@
   "scripts": {
     "postinstall": "yarn run encore production"
   },
-  
   "dependencies": {
     "@symfony/webpack-encore": "^0.17.0",
     "jquery": "^3.2.1",
+    "jquery-ui": "^1.12.1",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "spectre.css": "^0.5.0",
