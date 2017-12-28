@@ -43,25 +43,38 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            //Check on content
             $article = $form->getData();
-            $urlAlias = base64_encode(random_bytes(5)) . '-' . $article->getTitle();
-            $urlAlias = str_replace('/','',$urlAlias);
-            $article->setUrlAlias($urlAlias);
-            $article->setPublishedDate(new \DateTime());
-            $article->setUser($this->getUser());
 
-            $idSerie = $form->get('serie')->getViewData();
-            $article->setSerie($em->find($idSerie));
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
-            // todo : afficher un message de succès
-            return $this->redirectToRoute('homepage');
+            if($article->getContent() != null && $article->getContent() != ""){
+                $urlAlias = base64_encode(random_bytes(5)) . '-' . $article->getTitle();
+                $urlAlias = str_replace('/','',$urlAlias);
+                $article->setUrlAlias($urlAlias);
+                $article->setPublishedDate(new \DateTime());
+                $article->setUser($this->getUser());
 
+                $idSerie = $form->get('serie')->getViewData();
+                $article->setSerie($em->find($idSerie));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->set('success', 'Article created');
+                // todo : afficher un message de succès
+                return $this->redirectToRoute('homepage');
+            }
+            else {
+                $this->get('session')->getFlashBag()->set('error', 'Content cannot be empty');
+                return $this->render('default/newArticle.html.twig', array(
+                    'form' => $form->createView()
+                ));
+            }
         }
 
         return $this->render('default/newArticle.html.twig', array(
             'form' => $form->createView(),
+            'error' => null
         ));
     }
 

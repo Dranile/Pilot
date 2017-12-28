@@ -58,16 +58,21 @@ class SerieController extends Controller
 
     /**
      * @Route("/{name}", name="get_serie")
-     * @ParamConverter("serie", class="AppBundle:Serie")
      */
-    public function getArticleOfSerie(Serie $serie){
+    public function getArticleOfSerie(Serie $serie = null){
 
-        $repository = $this->getDoctrine()->getRepository(Article::class);
-        $results = $repository->getArticleOfSerie($serie->getId());
+        if(!empty($serie)){
+            $repository = $this->getDoctrine()->getRepository(Article::class);
+            $results = $repository->getArticleOfSerie($serie->getId());
 
-        dump($results);
+            return $this->render('default/index.html.twig', [
+                'results' => $results,
+                'pagination' => null
+            ]);
+        }
+
         return $this->render('default/index.html.twig', [
-            'results' => $results,
+            'results' => null,
             'pagination' => null
         ]);
 

@@ -3,6 +3,16 @@
 {% block title %}{{ 'home'|trans }}{% endblock %}
 
 {% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="columns">
+            <div class="col-12 col-mx-auto">
+                <div class="toast toast-success">
+                    <button class="btn btn-clear float-right"></button>
+                    {{ flashMessage }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
     {% if results|length == 0 %}
         <div class="columns">
             <div class="col-sm-12 col-6 col-mx-auto">

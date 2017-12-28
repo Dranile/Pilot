@@ -10,7 +10,7 @@
 
 {%- block form_widget_simple -%}
     {%- set type = type|default('text') -%}
-    <input class="form-input" {% if label is not empty -%}placeholder="{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}"{%- endif -%} type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    <input class="form-input" {% if min is defined %} min = {{ min }} {% endif %}{% if label is not empty -%} placeholder="{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}"{%- endif -%} type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
 {%- endblock form_widget_simple -%}
 
 {%- block form_widget_compound -%}
@@ -178,6 +178,7 @@
 
 {%- block integer_widget -%}
     {%- set type = type|default('number') -%}
+    {%- set min = "1" -%}
     {{ block('form_widget_simple') }}
 {%- endblock integer_widget -%}
 

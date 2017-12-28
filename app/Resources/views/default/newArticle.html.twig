@@ -12,6 +12,12 @@
 {% block body %}
     <div class="columns">
         <div class="column col-6 col-mx-auto col-sm-12">
+            {% for flashMessage in app.session.flashbag.get('error') %}
+                <div class="toast toast-error">
+                    <button class="btn btn-clear float-right"></button>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
             {{ form(form) }}
         </div>
     </div>

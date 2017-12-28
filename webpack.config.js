@@ -11,6 +11,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('navbar', './assets/js/navbar.js')
     .addEntry('form_article','./assets/js/form_article.js')
+    .addEntry('toast','./assets/js/toast.js')
 
     // allow sass/scss files to be processed
     .enableSassLoader()
