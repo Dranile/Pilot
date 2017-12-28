@@ -81,16 +81,41 @@ class ArticleController extends Controller
     /**
      * @Route("/{urlAlias}", name="article_show")
      */
-    public function viewArticle(Article $article){
+    public function viewArticle(Article $article, Request $request){
+        // Gestion des commentaires et de la pagination
+        $page = $request->query->get('page');
+        $nb = $request->query->get('nbItems');
+        if(!$nb){
+            $nb = 5;
+        }
+        if(!$page){
+            $page = 1;
+        }
+
+        $repository = $this->getDoctrine()->getRepository(Comment::class);
+        $results = $repository->findLastComment($article->getId(),$page, $nb);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($results) / $nb),
+            'nbItems' => $nb,
+            'routePagination' => 'article_show',
+            'paramsRoute' => array('urlAlias' => $article->getUrlAlias()),
+        );
+
+        // Gestion du formulaire de création de commentaire
         $comment = new Comment();
         $comment->setArticle($article);
         $form = $this->createForm(CommentType::class, $comment, array(
             'action' =>  $this->generateUrl('new_comment'),
         ));
+
         return $this->render('default/viewArticle.html.twig', [
             'form' => $form->createView(),
             'article' => $article,
             'isAuthorized' => $this->authorizedUser($this->getUser(), $article->getUser()),
+            'comments' => $results,
+            'pagination' => $pagination,
         ]);
     }
 

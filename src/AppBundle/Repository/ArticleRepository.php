@@ -15,6 +15,29 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findLastArticle($page = 1, $max = 10 ){
 
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->orderBy("a.publishedDate","DESC");
+        $query = $queryBuilder->getQuery();
+
+        //return $query->getResult();
+        return $this->getPaginator($query, $page, $max);
+    }
+
+    public function getArticleOfSerie($id, $page = 1, $max = 10){
+
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->where('a.serie = ?1')
+            ->orderBy("a.publishedDate","DESC")
+            ->setParameter(1,$id);
+
+
+        $query = $queryBuilder->getQuery();
+
+        return $this->getPaginator($query, $page, $max);
+
+    }
+
+    public static function getPaginator($query, $page, $max){
         if (!is_numeric($page)) {
             throw new InvalidArgumentException(
                 'value of argument $page is incorrect (value : ' . $page . ').'
@@ -31,10 +54,6 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
             );
         }
 
-        $queryBuilder = $this->createQueryBuilder('a')
-            ->orderBy("a.publishedDate","DESC");
-        $query = $queryBuilder->getQuery();
-
         $firstResult = ($page - 1) * $max;
         $query->setFirstResult($firstResult)->setMaxResults($max);
         $paginator = new Paginator($query);
@@ -42,22 +61,8 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         if ( ($paginator->count() <= $firstResult) && $page != 1) {
             throw new NotFoundHttpException('Asked page does not exist'); // page 404, sauf pour la première page
         }
-        //return $query->getResult();
+
         return $paginator;
-    }
-
-    public function getArticleOfSerie($id){
-
-        $queryBuilder = $this->createQueryBuilder('a')
-            ->where('a.serie = ?1')
-            ->setParameter(1,$id);
-
-
-        $query = $queryBuilder->getQuery();
-
-        $result = $query->getResult();
-
-        return $result;
 
     }
 

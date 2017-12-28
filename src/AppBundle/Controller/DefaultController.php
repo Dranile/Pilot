@@ -19,7 +19,7 @@ class DefaultController extends Controller
     {
 
         $page = $request->query->get('page');
-        $nb = $request->query->get('nbArticle');
+        $nb = $request->query->get('nbItems');
         if(!$nb){
             $nb = 5;
         }
@@ -37,12 +37,14 @@ class DefaultController extends Controller
         $pagination = array(
             'page' => $page,
             'nbPages' => ceil(count($results) / $nb),
-            'nbArticles' => $nb,
+            'nbItems' => $nb,
+            'routePagination' => 'homepage',
+            'paramsRoute' => array(),
         );
 
         return $this->render('default/index.html.twig', [
             'results' => $results,
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ]);
     }
 

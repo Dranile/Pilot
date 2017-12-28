@@ -10,4 +10,16 @@ namespace AppBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findLastComment($id, $page = 1, $max = 10){
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->where('a.article = ?1')
+            ->orderBy("a.date","DESC")
+            ->setParameter(1,$id);
+
+
+        $query = $queryBuilder->getQuery();
+
+        return ArticleRepository::getPaginator($query, $page, $max);
+    }
+
 }
