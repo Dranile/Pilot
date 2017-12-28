@@ -75,8 +75,14 @@
                     {% for comment in article.comments %}
                         <div class="card my-2">
                             <div class="card-header">
-                                {% if is_granted('ROLE_WRITER') or (comment.user.id == app.user.id) %}
+                                {% if is_granted('ROLE_WRITER') %}
                                     <a href="{{ path('delete_comment', {'id': comment.id}) }}" class="btn btn-error float-right"><i class="icon icon-delete"></i></a>
+                                    {% else %}
+                                        {% if app.user != null %}
+                                            {% if (comment.user.id == app.user.id) %}
+                                                <a href="{{ path('delete_comment', {'id': comment.id}) }}" class="btn btn-error float-right"><i class="icon icon-delete"></i></a>
+                                            {% endif %}
+                                        {% endif %}
                                 {% endif %}
                                 <div class="card-title h5">{{ comment.user.username }}</div>
                                 <div class="card-subtitle text-gray">{{ comment.date|date("d/M/Y H:i") }}</div>
