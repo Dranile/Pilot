@@ -49,7 +49,7 @@
                 <div class="column col-mx-auto">
                     <p>{{ article.content|raw }}</p>
                     {% if article.serie %}
-                        <span class="chip"><a class="text-primary" href="#">{{ article.serie.name }}</a></span>
+                        <span class="chip"><a class="text-primary" href="{{ path('get_serie', {'name' : article.serie.name}) }}">{{ article.serie.name }}</a></span>
                         {% if article.seasonNumber %}
                             <span class="chip"><a class="text-primary" href="#">{{ 'season'|trans }} {{ article.seasonNumber }}</a></span>
                         {% endif %}
