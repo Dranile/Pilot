@@ -6,10 +6,17 @@ Pilot
 - Carmona Anthony
 - Pyz Maxime
 
-## Compte admin
+## Comptes
 
- - Compte Admin : root
- - Mot de passe : UnSuperMotDePasseAvecDesChiffresTelQue15Ou16EtPuisFautRajouterDesCaracteresSpeciauxCestB1gLesCaracteresSpeciaux
+### Compte writer
+
+- Username : redac
+- Mot de passe : passwordRedac
+
+### Compte admin
+
+ - Username : admin
+ - Mot de passe : passwordAdmin
 
 
 ## Commentaire / Fonctionnalités
@@ -32,7 +39,7 @@ Bundle utilisés:
 - [x] Gestion des rôles (Utilisateur, Redacteur, Admin)
 - [x] Modification de profil habillé
 - [x] Modification de profil (Description)
-- [x] Gestion des utilisateurs par l'admin (modification de droit)
+- [ ] Gestion des utilisateurs par l'admin (modification de droit)
 
 #### Articles
 
@@ -42,18 +49,18 @@ Bundle utilisés:
 - [x] Visualisation d'article
 - [x] Modification d'article
 - [x] Suppression d'article
-- [ ] Affichage de message feedback (message quand une opération réussie ou renvoi une erreur)
+- [x] Affichage de message feedback (message quand une opération réussie ou renvoi une erreur)
 
 #### Commentaires
 
-- [ ] Rédaction d'un commentaire (utilisateur)
-- [ ] Visualisation des commentaires
+- [x] Rédaction d'un commentaire (utilisateur)
+- [x] Visualisation des commentaires
 - [ ] Modification d'un commentaire (Admin ou Redacteur ou utilisateur lui même)
-- [ ] Suppression d'un commentaire (Admin ou Redacteur ou utilisateur lui même)
+- [x] Suppression d'un commentaire (Admin ou Redacteur ou utilisateur lui même)
  
 #### Recherche
 
-- [ ] Rechercher les articles d'une série
+- [x] Rechercher les articles d'une série
 
 ## Installation / mise à jour
 
