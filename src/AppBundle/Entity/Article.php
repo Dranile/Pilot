@@ -284,5 +284,16 @@ class Article
         return $this->comments;
     }
 
+    public function addComment(Comment $c){
+        if(!$this->comments->contains($c)){
+            $this->comments[] = $c;
+            $c -> setArticle($this);
+        }
+    }
+
+    public function removeComment(Comment $p){
+        $this->comments->remove($p);
+    }
+
 }
 
