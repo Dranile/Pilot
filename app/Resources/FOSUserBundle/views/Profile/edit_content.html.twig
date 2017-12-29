@@ -3,11 +3,24 @@
 
 <div class="columns">
     <div class="column col-3 col-xs-12 col-mx-auto">
-        {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-            {{ form_widget(form) }}
-        <div class="form-group">
-            <input class="btn btn-primary" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+        <div class="panel centered">
+            <div class="panel-header text-center">
+                <div class="panel-title">
+                    <figure class="avatar centered" data-initial="YZ"></figure>
+                    <h4 id="edit-username">{{ app.user.username }}</h4>
+                </div>
+            </div>
+            <div class="panel-nav">
+            <!-- navigation components: tabs, breadcrumbs or pagination -->
+            </div>
+            <div class="panel-body">
+                {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+                {{ form_widget(form) }}
+            </div>
+            <div class="panel-footer">
+                <input class="btn btn-primary submit-btn" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+                {{ form_end(form) }}
+            </div>
         </div>
-        {{ form_end(form) }}
     </div>
 </div>

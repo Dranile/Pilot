@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\CommentType;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Serie;
@@ -42,53 +43,79 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            //Check on content
             $article = $form->getData();
-            $urlAlias = base64_encode(random_bytes(5)) . '-' . $article->getTitle();
-            $urlAlias = str_replace('/','',$urlAlias);
-            $article->setUrlAlias($urlAlias);
-            $article->setPublishedDate(new \DateTime());
-            $article->setUser($this->getUser());
 
-            $idSerie = $form->get('serie')->getViewData();
-            $article->setSerie($em->find($idSerie));
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
-            // todo : afficher un message de succès
-            return $this->redirectToRoute('homepage');
+            if($article->getContent() != null && $article->getContent() != ""){
+                $urlAlias = base64_encode(random_bytes(5)) . '-' . $article->getTitle();
+                $urlAlias = str_replace('/','',$urlAlias);
+                $article->setUrlAlias($urlAlias);
+                $article->setPublishedDate(new \DateTime());
+                $article->setUser($this->getUser());
 
+                $idSerie = $form->get('serie')->getViewData();
+                $article->setSerie($em->find($idSerie));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->set('success', 'Article created');
+                // todo : afficher un message de succès
+                return $this->redirectToRoute('homepage');
+            }
+            else {
+                $this->get('session')->getFlashBag()->set('error', 'Content cannot be empty');
+                return $this->render('default/newArticle.html.twig', array(
+                    'form' => $form->createView()
+                ));
+            }
         }
 
         return $this->render('default/newArticle.html.twig', array(
             'form' => $form->createView(),
+            'error' => null
         ));
     }
 
     /**
      * @Route("/{urlAlias}", name="article_show")
      */
-    public function viewArticle(Article $article){
+    public function viewArticle(Article $article, Request $request){
+        // Gestion des commentaires et de la pagination
+        $page = $request->query->get('page');
+        $nb = $request->query->get('nbItems');
+        if(!$nb){
+            $nb = 5;
+        }
+        if(!$page){
+            $page = 1;
+        }
+
+        $repository = $this->getDoctrine()->getRepository(Comment::class);
+        $results = $repository->findLastComment($article->getId(),$page, $nb);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($results) / $nb),
+            'nbItems' => $nb,
+            'routePagination' => 'article_show',
+            'paramsRoute' => array('urlAlias' => $article->getUrlAlias()),
+        );
+
+        // Gestion du formulaire de création de commentaire
         $comment = new Comment();
-        $form = $this->createFormBuilder($comment)
-            ->add('content', TextareaType::class, array(
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'your-comment',
-                    'class' => 'form-input'
-                ]
-            ))
-            ->add('create', SubmitType::class, array(
-                'label' => 'create',
-                'attr' => [
-                    'class' => 'btn btn-primary float-right'
-                ]
-            ))
-            ->getForm();
+        $comment->setArticle($article);
+        $form = $this->createForm(CommentType::class, $comment, array(
+            'action' =>  $this->generateUrl('new_comment'),
+        ));
 
         return $this->render('default/viewArticle.html.twig', [
             'form' => $form->createView(),
             'article' => $article,
             'isAuthorized' => $this->authorizedUser($this->getUser(), $article->getUser()),
+            'comments' => $results,
+            'pagination' => $pagination,
         ]);
     }
 
@@ -96,7 +123,7 @@ class ArticleController extends Controller
      * @Route("/deleteArticle/{urlAlias}", name="article_delete")
      */
     public function deleteArticle(Article $article){
-        if( !$this->authorizedUser($this->getUser(), $article->getUser()) ){
+        if( !$this->authorizedUser($this->getUser(), $article->getUser())){
             //TODO Erreur à gérer
             return $this->redirectToRoute('homepage');
         }
@@ -126,26 +153,37 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
             $article = $form->getData();
 
-            $idSerie = $form->get('serie')->getViewData();
-            $article->setSerie($em->find($idSerie));
+            if($article->getContent() != null && $article->getContent() != "") {
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
-            // todo : afficher un message de succès
-            return $this->redirectToRoute('homepage');
+                $idSerie = $form->get('serie')->getViewData();
+                $article->setSerie($em->find($idSerie));
 
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->set('success', 'Content modified');
+
+                // todo : afficher un message de succès
+                return $this->redirectToRoute('homepage');
+
+            }
+            else {
+                $this->get('session')->getFlashBag()->set('error', 'Content cannot be empty');
+                return $this->render('default/newArticle.html.twig', array(
+                    'form' => $form->createView()
+                ));
+            }
         }
-
         return $this->render('default/newArticle.html.twig', array(
             'form' => $form->createView(),
         ));
-
     }
 
-    public function createArticleForm(Article $article, ObjectRepository $em, $type){
+    private function createArticleForm(Article $article, ObjectRepository $em, $type){
         $form = $this->createFormBuilder($article)
             ->add('serie', ChoiceType::class, array(
                 'choices' => $em->findAll(),
@@ -186,7 +224,7 @@ class ArticleController extends Controller
         return $form;
     }
 
-    public function authorizedUser($user, $userArticle){
+    private function authorizedUser($user, $userArticle){
         return $user && (($user->getId() === $userArticle->getId()) || $this->isGranted('ROLE_ADMIN', $user));
     }
 }

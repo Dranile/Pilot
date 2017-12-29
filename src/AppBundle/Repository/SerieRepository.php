@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class SerieRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getSameAs($text){
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT s.name FROM serie s
+                WHERE s.name LIKE :text';
+
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array(':text' => $text . '%'));
+
+        return $stmt->fetchAll();
+    }
 }

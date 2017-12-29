@@ -2,7 +2,22 @@
 
 {% block title %}{{ 'home'|trans }}{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/index.css') }}" />
+{% endblock %}
+
 {% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="columns">
+            <div class="col-12 col-mx-auto">
+                <div class="toast toast-success">
+                    <button class="btn btn-clear float-right"></button>
+                    {{ flashMessage }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
     {% if results|length == 0 %}
         <div class="columns">
             <div class="col-sm-12 col-6 col-mx-auto">
@@ -16,81 +31,36 @@
             </div>
         </div>
     {% else %}
-        {% for article in results %}
-            <div class="columns">
-                <div class="column col-6 col-sm-12 centered">
-                    <h2>{{ article.title }}</h2>
-                    <div class="text-gray">
-                        {{ article.publishedDate | date("d/M/Y H:i") }} - {{ article.user.username }}
-                    </div>
-                    <div class="columns">
-                            <div class="
-                                {% if article.serie and article.serie.imageUrl %}
-                                    column col-8
-                                {% else %}
-                                    column col-12
-                                {% endif %}
-                            ">
-                            <p >{{ article.content|raw }}</p>
-                            {% if article.serie %}
-                                <span class="chip"><a class="text-gray" href="#">{{ article.serie.name }}</a></span>
-                                {% if article.seasonNumber %}
-                                    <span class="chip"><a class="text-gray" href="#">{{ 'season'|trans }} {{ article.seasonNumber }}</a></span>
-                                {% endif %}
-                            {% endif %}
-                        </div>
-                        {% if article.serie and article.serie.imageUrl %}
+        <div id="article-container" style="margin-top: 20px;" class="col-8">
+            {% for article in results %}
+                <div class="columns">
+                    {% if article.serie and article.serie.imageUrl %}
                         <div class="column col-4">
                             <img class="img-responsive" src="{{ article.serie.imageUrl }}"/>
                         </div>
-                        {% endif %}
+                    {% endif %}
+                    <div class="column col-mx-auto">
+                        <h5>{{ article.title }}</h5>
+                        <div class="text-gray">
+                            {{ article.publishedDate | date("d/M/Y H:i") }} - {{ article.user.username }}
+                        </div>
                     </div>
-                    <div>
+                </div>
+                <div class="column col-mx-auto">
+                    <p>{{ article.content|raw }}</p>
+                    {% if article.serie %}
+                        <span class="chip"><a class="text-primary" href="#">{{ article.serie.name }}</a></span>
+                        {% if article.seasonNumber %}
+                            <span class="chip"><a class="text-primary" href="#">{{ 'season'|trans }} {{ article.seasonNumber }}</a></span>
+                        {% endif %}
+                    {% endif %}
+                    <div class="float-right">
                         <a href="{{ path('article_show', {'urlAlias': article.urlAlias}) }}">{{ 'read-more'|trans }}</a>
                     </div>
                     <div class="divider"></div>
                 </div>
-            </div>
-        {% endfor %}
-        {% if pagination.nbPages > 0 %}
-            <div class="flex-center">
-                <ul class="pagination">
-                    <li class="page-item {% if pagination.page == 1 %}disabled{% endif %}">
-                        <a href="{{ url('homepage') ~ '?page=' ~ (pagination.page-1) ~ '&nbArticle=' ~ pagination.nbArticles }}">{{ 'previous'|trans }}</a>
-                    </li>
-                    {% if pagination.page-2 > 1 %}
-                        <li class="page-item">
-                            <a href="{{ url('homepage') ~ '?page=1&nbArticle=' ~ pagination.nbArticles }}">1</a>
-                        </li>
-                        {% if pagination.page-3 > 1 %}
-                            <li class="page-item">
-                                <span>...</span>
-                            </li>
-                        {% endif %}
-                    {% endif %}
-                    {% for p in range(max(pagination.page-2, 1), min(pagination.page+2, pagination.nbPages)) %}
-                        <li class="page-item {% if p == pagination.page %}active{% endif %}">
-                            <a href="{{ url('homepage') ~ '?page=' ~ p ~ '&nbArticle=' ~ pagination.nbArticles }}">
-                                {{ p }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                    {% if pagination.page+2 < pagination.nbPages %}
-                        {% if pagination.page+3 < pagination.nbPages %}
-                            <li class="page-item">
-                                <span>...</span>
-                            </li>
-                        {% endif %}
-                        <li class="page-item">
-                            <a href="{{ url('homepage') ~ '?page=' ~ pagination.nbPages ~ '&nbArticle=' ~ pagination.nbArticles }}">{{ pagination.nbPages }}</a>
-                        </li>
-                    {% endif %}
-                    <li class="page-item {% if pagination.page == pagination.nbPages %}disabled{% endif %}">
-                        <a href="{{ url('homepage') ~ '?page=' ~ (pagination.page+1) ~ '&nbArticle=' ~ pagination.nbArticles }}">{{ 'next'|trans }}</a>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        {% endif %}
+            {% endfor %}
+        </div>
+        {% include 'default/pagination.html.twig' %}
     {% endif %}
 {% endblock %}

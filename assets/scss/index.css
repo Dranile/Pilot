@@ -1,0 +1,10 @@
+.divider {
+    border-width: 1px;
+    border-color: black;
+}
+
+#article-container {
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
