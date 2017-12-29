@@ -50,6 +50,7 @@ Bundle utilisés:
 - [x] Modification d'article
 - [x] Suppression d'article
 - [x] Affichage de message feedback (message quand une opération réussie ou renvoi une erreur)
+- [ ] Afficher les articles pin sur la page d'acceuil et les mettres en avant
 
 #### Commentaires
 

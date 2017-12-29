@@ -9,15 +9,15 @@
     <div class="columns">
         <div class="column col-6 col-sm-12 col-mx-auto">
             <div>
-                {% if isAuthorized %}
                     <div class="centered">
                         <h2 class="text-center">{{ article.title }}</h2>
+                        {% if isAuthorized %}
                         <div style="float:right">
                             <a href="{{ path('article_update', {'urlAlias': article.urlAlias}) }}"><i class="icon icon-2x icon-edit bg-error"></i></a>
                             <a href="{{ path('article_delete', {'urlAlias': article.urlAlias}) }}"><i class="icon icon-2x icon-cross bg-error"></i></a>
                         </div>
+                        {% endif %}
                     </div>
-                {% endif %}
             </div>
             {% if article.serie and article.serie.imageUrl %}
                 <img class="img-responsive col-mx-auto"  src="{{ article.serie.imageUrl }}">
