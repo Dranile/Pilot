@@ -75,8 +75,6 @@ class SerieController extends Controller
 
             $repository = $this->getDoctrine()->getRepository(Article::class);
             $results = $repository->getArticleOfSerie($serie->getId(), $page, $nb);
-            dump($request);
-            dump($results);
             $truncateService = new TruncateService();
             foreach ($results as $article){
                 $article->setContent($truncateService->truncate($article->getContent(), 255));
