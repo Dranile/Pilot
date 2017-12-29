@@ -8,3 +8,8 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+div.footer-article{
+    display: flex;
+    justify-content: space-between;
+}

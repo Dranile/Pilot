@@ -31,33 +31,41 @@
             </div>
         </div>
     {% else %}
-        <div id="article-container" style="margin-top: 20px;" class="col-8">
+        <div id="article-container" style="margin-top: 20px;" class="col-8 col-sm-12">
             {% for article in results %}
-                <div class="columns">
-                    {% if article.serie and article.serie.imageUrl %}
-                        <div class="column col-4">
-                            <img class="img-responsive" src="{{ article.serie.imageUrl }}"/>
-                        </div>
-                    {% endif %}
-                    <div class="column col-mx-auto">
-                        <h5>{{ article.title }}</h5>
-                        <div class="text-gray">
-                            {{ article.publishedDate | date("d/M/Y H:i") }} - {{ article.user.username }}
-                        </div>
-                    </div>
-                </div>
-                <div class="column col-mx-auto">
-                    <p>{{ article.content|raw }}</p>
-                    {% if article.serie %}
-                        <span class="chip"><a class="text-primary" href="{{ path('get_serie', {'name' : article.serie.name}) }}">{{ article.serie.name }}</a></span>
-                        {% if article.seasonNumber %}
-                            <span class="chip"><a class="text-primary" href="#">{{ 'season'|trans }} {{ article.seasonNumber }}</a></span>
+                <div>
+                    <div class="columns">
+                        {% if article.serie and article.serie.imageUrl %}
+                            <div class="column col-4">
+                                <img class="img-responsive" src="{{ article.serie.imageUrl }}"/>
+                            </div>
                         {% endif %}
-                    {% endif %}
-                    <div class="float-right">
-                        <a href="{{ path('article_show', {'urlAlias': article.urlAlias}) }}">{{ 'read-more'|trans }}</a>
+                        <div class="column {% if article.serie and article.serie.imageUrl %}col-8{% else %}col-12{% endif %}">
+                            <h5>{{ article.title }}</h5>
+                            <div class="text-gray">
+                                {{ article.publishedDate | date("d/M/Y H:i") }} - {{ article.user.username }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="divider"></div>
+                    <div>
+                        <div>
+                            <p>{{ article.content|raw }}</p>
+                        </div>
+                        <div class="footer-article">
+                            <div>
+                            {% if article.serie %}
+                                <span class="chip"><a class="text-primary" href="{{ path('get_serie', {'name' : article.serie.name}) }}">{{ article.serie.name }}</a></span>
+                                {% if article.seasonNumber %}
+                                    <span class="chip"><a class="text-primary" href="#">{{ 'season'|trans }} {{ article.seasonNumber }}</a></span>
+                                {% endif %}
+                            {% endif %}
+                            </div>
+                            <div style="">
+                                <a href="{{ path('article_show', {'urlAlias': article.urlAlias}) }}">{{ 'read-more'|trans }}</a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                    </div>
                 </div>
             {% endfor %}
         </div>
