@@ -15,12 +15,12 @@ header {
     color: white;
 }
 
-#nav_avatar {
-    background-color : green;
-}
-
 #or-span {
     display:inline-block;
     vertical-align: middle;
     color: white;
+}
+
+.avatar {
+    background : green;
 }

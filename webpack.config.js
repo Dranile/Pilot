@@ -12,6 +12,9 @@ Encore
     .addEntry('navbar', './assets/js/navbar.js')
     .addEntry('form_article','./assets/js/form_article.js')
     .addEntry('toast','./assets/js/toast.js')
+    // Compile stylesheets
+    .addEntry('index','./assets/scss/index.css')
+    .addEntry('edit','./assets/scss/edit.css')
 
     // allow sass/scss files to be processed
     .enableSassLoader()

@@ -3,11 +3,11 @@
 
 <div class="columns">
     <div class="column col-3 col-xs-12 col-mx-auto">
-        <div style="background-color: white; margin: 10px;padding: 10px;" class="panel centered">
+        <div class="panel centered">
             <div class="panel-header text-center">
                 <div class="panel-title">
-                    <figure style="margin-left: auto;margin-right: auto;background-color: green" class="avatar" data-initial="YZ"></figure>
-                    <h4 style="text-align: center; margin: 5px;">{{ app.user.username }}</h4>
+                    <figure class="avatar centered" data-initial="YZ"></figure>
+                    <h4 id="edit-username">{{ app.user.username }}</h4>
                 </div>
             </div>
             <div class="panel-nav">
@@ -18,7 +18,7 @@
                 {{ form_widget(form) }}
             </div>
             <div class="panel-footer">
-                <input style="width: 100%;" class="btn btn-primary" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+                <input class="btn btn-primary submit-btn" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
                 {{ form_end(form) }}
             </div>
         </div>
