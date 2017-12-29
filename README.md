@@ -24,6 +24,7 @@ Pilot
 ### Commentaire
 
 Framework css : Spectre-css
+la traduction d'éléments fixes du site ont été réalisés
 
 Bundle utilisés:
 
